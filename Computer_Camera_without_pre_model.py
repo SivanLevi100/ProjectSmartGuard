@@ -8,16 +8,13 @@ from concurrent.futures import ThreadPoolExecutor
 import time
 
 
-cap = cv2.VideoCapture(0)  # לפתוח מצלמה-0 או לשים סרטונים
-
-model = keras.models.load_model("cnn_lstm_model_PRO.hdf5")  # load our model from Colab
-print(model.input_shape)  # The number of dimensions in the matrix (None, 10, 224, 224, 3)
 
 global label
-label = "Non Violence"  # Default label
+
 
 global IMAGE_HEIGHT
-IMAGE_SIZE = 64
+global IMAGE_SIZE
+
 global original_size
 global counterNV
 global counterV
@@ -48,72 +45,89 @@ def detect(model, frames):  # Classifies the frames by the model and return the 
     print('#################################')
     print(predicted_labels_probabilities)
     if predicted_labels_probabilities[0][0] > 0.5:
-        label = "Non Violence"
-    else:
         label = "Violence"
+    else:
+        label = "Non Violence"
 
     return label
 
+def main(video):
+    label = "Non Violence"  # Default label
 
-#i = 0
-#warm_up_frames = 2
+    cap = cv2.VideoCapture(video)  # לפתוח מצלמה-0 או לשים סרטונים
 
-resized_frames = np.zeros(shape=(1, 10, IMAGE_SIZE, IMAGE_SIZE, 3),
-                          dtype=np.float32)  # float32 to minimze using RAM
-frames = np.zeros(shape=(10, IMAGE_SIZE, IMAGE_SIZE, 3), dtype=np.float32)  # float32 to minimze using RAM
+    model = keras.models.load_model("cnn_lstm_model_PRO.hdf5")  # load our model from Colab
+    print(model.input_shape)  # The number of dimensions in the matrix (None, 10, 224, 224, 3)
 
-counterV=0
-counterNV=0
-while True:
-    frames_list = []
-    #for j in range(10):# השאלה אם לעשות את הלולאה עבור כל 10 פריימים שונים או לקחת פריים אחד ולהכניס אותו 10 פעמים לתוך רשימה
-   # ret == false - there is error
-    for j in range(10):
-        ret, frame = cap.read()
-        if ret == True:
-            frame_original = cv2.resize(frame, (500, 500))
-            frame = cv2.resize(frame, (IMAGE_SIZE, IMAGE_SIZE))  # Adjusts the frame to the size the model knows
-            frame = frame / 255
-            #time.sleep(0.04)
-            # time.sleep(0.04)   תשימו לב שאם שולחים סרטון אז זה מאט את הקצב כי הסרטון רץ מהר!ואם עושים ממצלמה לא צריך את זה
-            frames_list.append(frame)
+    # i = 0
+    # warm_up_frames = 2
+    IMAGE_SIZE = 64
+    resized_frames = np.zeros(shape=(1, 10, IMAGE_SIZE, IMAGE_SIZE, 3),
+                              dtype=np.float32)  # float32 to minimze using RAM
+    frames = np.zeros(shape=(10, IMAGE_SIZE, IMAGE_SIZE, 3), dtype=np.float32)  # float32 to minimze using RAM
+
+    counterV = 0
+    counterNV = 0
+
+    while True:
+        frames_list = []
+        # for j in range(10):# השאלה אם לעשות את הלולאה עבור כל 10 פריימים שונים או לקחת פריים אחד ולהכניס אותו 10 פעמים לתוך רשימה
+        # ret == false - there is error
+        for j in range(10):
+            ret, frame = cap.read()
+            if ret == True:
+                frame_original = cv2.resize(frame, (500, 500))
+                frame = cv2.resize(frame, (IMAGE_SIZE, IMAGE_SIZE))  # Adjusts the frame to the size the model knows
+                frame = frame / 255
+                # time.sleep(0.04)
+                # time.sleep(0.04)   תשימו לב שאם שולחים סרטון אז זה מאט את הקצב כי הסרטון רץ מהר!ואם עושים ממצלמה לא צריך את זה
+                frames_list.append(frame)
+            else:
+                break
+
+        if len(frames_list) < 10:
+            # print("Final:"+ max(counterV,counterNV))
+            break
+        frames = np.array(frames_list).reshape(1, 10, IMAGE_SIZE, IMAGE_SIZE, 3)
+        # i = i + 1
+        print('Took 10 Frames Successfully')
+        resized_frames[0][:] = frames
+        print(resized_frames.shape)
+        # לא ברור אם נצטרך להשתמש בזה כרגע זה עבד גם בלי זה..if i > warm_up_frames:
+        print("Start detecting...")
+        # t1 = threading.Thread(target=detect, args=(model, resized_frames))  # Threads
+        # t1.start()
+        label = detect(model, resized_frames)
+        if label == "Violence":
+            counterV = counterV + 1
         else:
+            counterNV = counterNV + 1
+        print("!!!!!!!!!!!!!!!!!!!")
+        print(label)
+        # print(t1)
+        frame_original = draw_class_on_image(label, frame_original)
+        # frame = draw_class_on_image(label, frame)
+        cv2.imshow("image", frame_original)
+
+        if cv2.waitKey(1) == ord('q'):
             break
 
-    if len(frames_list) < 10:
-        #print("Final:"+ max(counterV,counterNV))
-        break
-    frames = np.array(frames_list).reshape(1, 10, IMAGE_SIZE, IMAGE_SIZE, 3)
-    # i = i + 1
-    print('Took 10 Frames Successfully')
-    resized_frames[0][:] = frames
-    print(resized_frames.shape)
-    # לא ברור אם נצטרך להשתמש בזה כרגע זה עבד גם בלי זה..if i > warm_up_frames:
-    print("Start detecting...")
-    # t1 = threading.Thread(target=detect, args=(model, resized_frames))  # Threads
-    # t1.start()
-    label = detect(model, resized_frames)
-    if label == "Violence":
-        counterV = counterV + 1
-    else:
-        counterNV = counterNV + 1
-    print("!!!!!!!!!!!!!!!!!!!")
-    print(label)
-    # print(t1)
-    frame_original = draw_class_on_image(label, frame_original)
-    #frame = draw_class_on_image(label, frame)
-    cv2.imshow("image", frame_original)
 
-    if cv2.waitKey(1) == ord('q'):
-        break
+    cap.release()
+    cv2.destroyAllWindows()
 
-print("Final:")
-if counterNV>counterV:
-    print("Non Violence")
-if counterNV<counterV:
-    print("Violence")
-if counterNV==counterV:
-    print("counterNV = counterV")
+    print("Final:")
+    if counterNV > counterV:
+        #print("Non Violence")
+        return "Non Violence"
+    if counterNV < counterV:
+        #print("Violence")
+        return "Violence"
+    if counterNV == counterV:
+        #print("counterNV = counterV")
+        return "counterNV = counterV"
 
-cap.release()
-cv2.destroyAllWindows()
+
+
+
+
