@@ -11,7 +11,10 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\owner\Desktop\לימודים - שנה ג\סמסטר א\בינה מלאכותית וישומה\Tkinter-Designer-master\Tkinter-Designer-master\build\assets\frame0")
+#ASSETS_PATH1=Path("/ProjectSmartGuard/Images_UI/")
 
+#def relative_to_assets1(path: str) -> Path:
+#    return ASSETS_PATH1 / Path(path)
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
@@ -36,6 +39,7 @@ canvas = Canvas(
 canvas.place(x = 0, y = 0)
 button_image_1 = PhotoImage(
     file=relative_to_assets("button_1.png"))
+
 button_1 = Button(
     image=button_image_1,
     borderwidth=0,
@@ -58,6 +62,7 @@ def click_button_2():
 
 button_image_2 = PhotoImage(
     file=relative_to_assets("button_2.png"))
+
 button_2 = Button(
     image=button_image_2,
     borderwidth=0,
