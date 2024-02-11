@@ -14,7 +14,7 @@ OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\owner\Desktop\לימודים - שנה ג\סמסטר א\Tkinter-Designer-master (1)\Tkinter-Designer-master\build\assets\frame0")
 
 
-ASSETS_PATH1=OUTPUT_PATH/Path(r"C:\Users\owner\PycharmProjects\ProjectSmartGuard1\ProjectSmartGuard\Images_UI\frame_2")
+ASSETS_PATH1=OUTPUT_PATH/Path(r"Images_UI/frame_2")
 def relative_to_assets1(path: str) -> Path:
     return ASSETS_PATH1 / Path(path)
 
