@@ -11,10 +11,10 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\owner\Desktop\לימודים - שנה ג\סמסטר א\בינה מלאכותית וישומה\Tkinter-Designer-master\Tkinter-Designer-master\build\assets\frame0")
-#ASSETS_PATH1=Path("/ProjectSmartGuard/Images_UI/")
+ASSETS_PATH1=OUTPUT_PATH/Path(r"C:\Users\owner\PycharmProjects\ProjectSmartGuard1\ProjectSmartGuard\Images_UI")
 
-#def relative_to_assets1(path: str) -> Path:
-#    return ASSETS_PATH1 / Path(path)
+def relative_to_assets1(path: str) -> Path:
+    return ASSETS_PATH1 / Path(path)
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
@@ -58,10 +58,10 @@ def click_button_2():
     print("work")
     label = Computer_Camera_without_pre_model.main("NV_183.mp4")
    # Tk.messagebox.showerror(label)
-    Tk.title(label)
+    #Tk.title(label)
 
 button_image_2 = PhotoImage(
-    file=relative_to_assets("button_2.png"))
+    file=relative_to_assets1("button_2.png"))
 
 button_2 = Button(
     image=button_image_2,
