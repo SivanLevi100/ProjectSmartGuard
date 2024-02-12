@@ -4,14 +4,14 @@
 
 import subprocess
 from pathlib import Path
-
+#import Computer_Camera_without_pre_model
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\owner\Desktop\לימודים - שנה ג\סמסטר א\Tkinter-Designer-master (1)\Tkinter-Designer-master\build\assets\frame0")
+# ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\owner\Desktop\לימודים - שנה ג\סמסטר א\Tkinter-Designer-master (1)\Tkinter-Designer-master\build\assets\frame0")
 
 
 ASSETS_PATH1=OUTPUT_PATH/Path(r"Images_UI/frame_2")
@@ -19,8 +19,8 @@ def relative_to_assets1(path: str) -> Path:
     return ASSETS_PATH1 / Path(path)
 
 
-def relative_to_assets(path: str) -> Path:
-    return ASSETS_PATH / Path(path)
+# def relative_to_assets(path: str) -> Path:
+#     return ASSETS_PATH / Path(path)
 
 
 window = Tk()
@@ -38,21 +38,21 @@ canvas = Canvas(
     highlightthickness = 0,
     relief = "ridge"
 )
-def click_b1():
+def click_button_exit():
     window.destroy()
     subprocess.call(['python', 'page1_tk.py'])
 
 canvas.place(x = 0, y = 0)
-button_image_1 = PhotoImage(
+button_exit = PhotoImage(
     file=relative_to_assets1("button_1.png"))
-button_1 = Button(
-    image=button_image_1,
+button_Exit = Button(
+    image=button_exit,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: click_b1(),
+    command=lambda: click_button_exit(),
     relief="flat"
 )
-button_1.place(
+button_Exit.place(
     x=14.0,
     y=31.0,
     width=27.0,
@@ -74,36 +74,40 @@ image_2 = canvas.create_image(
     277.0,
     image=image_image_2
 )
-def click_b2():
+def click_button_Class():
     window.destroy()
     subprocess.call(['python', 'page3_tk.py'])
 
-button_image_2 = PhotoImage(
+button_class = PhotoImage(
     file=relative_to_assets1("button_2.png"))
-button_2 = Button(
-    image=button_image_2,
+button_Class = Button(
+    image=button_class,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: click_b2(),
+    command=lambda: click_button_Class(),
     relief="flat"
 )
-button_2.place(
+button_Class.place(
     x=239.0,
     y=302.0,
     width=146.0,
     height=40.0
 )
+def click_button_real_time():
+    print("real time button")
+    #Computer_Camera_without_pre_model.main(0)
 
-button_image_3 = PhotoImage(
+button_real_time = PhotoImage(
     file=relative_to_assets1("button_3.png"))
-button_3 = Button(
-    image=button_image_3,
+
+button_Real_Time = Button(
+    image=button_real_time,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_3 clicked"),
+    command=lambda: click_button_real_time(),
     relief="flat"
 )
-button_3.place(
+button_Real_Time.place(
     x=39.0,
     y=302.0,
     width=146.0,
@@ -115,23 +119,23 @@ image_image_3 = PhotoImage(
 image_3 = canvas.create_image(
     311.0,
     277.0,
-    image=image_image_3
+    image= image_image_3
 )
-def click_b4():
+def click_Violent_Video():
     window.destroy()
     subprocess.call(['python', 'page4_tk.py'])
 
 
-button_image_4 = PhotoImage(
+button_violent_videos = PhotoImage(
     file=relative_to_assets1("button_4.png"))
-button_4 = Button(
-    image=button_image_4,
+button_Violent_Videos = Button(
+    image=button_violent_videos,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: click_b4(),
+    command=lambda: click_Violent_Video(),
     relief="flat"
 )
-button_4.place(
+button_Violent_Videos.place(
     x=160.0,
     y=456.0,
     width=120.0,

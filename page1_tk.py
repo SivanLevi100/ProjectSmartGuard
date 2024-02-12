@@ -5,16 +5,17 @@ from pathlib import Path
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 import subprocess
+#import Computer_Camera_without_pre_model
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\owner\Desktop\לימודים - שנה ג\סמסטר א\Tkinter-Designer-master (1)\Tkinter-Designer-master\build\assets\frame0")
+# ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\owner\Desktop\לימודים - שנה ג\סמסטר א\Tkinter-Designer-master (1)\Tkinter-Designer-master\build\assets\frame0")
 
 ASSETS_PATH1=OUTPUT_PATH/Path(r"Images_UI/frame_1")
 def relative_to_assets1(path: str) -> Path:
     return ASSETS_PATH1 / Path(path)
 
-def relative_to_assets(path: str) -> Path:
-    return ASSETS_PATH / Path(path)
+# def relative_to_assets(path: str) -> Path:
+#     return ASSETS_PATH / Path(path)
 
 
 window = Tk()
@@ -81,20 +82,21 @@ entry_2.place(
     width=222.0,
     height=35.0
 )
-def click_b1():
+def click_button_connect():
     window.destroy()
+    #subprocess.call(['python', 'page2_tk.py'])
     subprocess.call(['python', 'page2_tk.py'])
 
-button_image_1 = PhotoImage(
+button_connect = PhotoImage(
     file=relative_to_assets1("button_1.png"))
-button_1 = Button(
-    image=button_image_1,
+button_Connect = Button(
+    image=button_connect,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: click_b1(),
+    command=lambda: click_button_connect(),
     relief="flat"
 )
-button_1.place(
+button_Connect.place(
     x=168.0,
     y=517.0,
     width=110.0,

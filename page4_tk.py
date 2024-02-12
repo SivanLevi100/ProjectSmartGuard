@@ -7,9 +7,9 @@ from pathlib import Path
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
-
+import tkinter as tk
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\owner\Desktop\לימודים - שנה ג\סמסטר א\Tkinter-Designer-master (1)\Tkinter-Designer-master\build\assets\frame0")
+# ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\owner\Desktop\לימודים - שנה ג\סמסטר א\Tkinter-Designer-master (1)\Tkinter-Designer-master\build\assets\frame0")
 
 
 ASSETS_PATH1=OUTPUT_PATH/Path(r"Images_UI/frame_4")
@@ -18,8 +18,8 @@ def relative_to_assets1(path: str) -> Path:
 
 
 
-def relative_to_assets(path: str) -> Path:
-    return ASSETS_PATH / Path(path)
+# def relative_to_assets(path: str) -> Path:
+#     return ASSETS_PATH / Path(path)
 
 
 window = Tk()
@@ -73,5 +73,26 @@ image_2 = canvas.create_image(
     195.0,
     image=image_image_2
 )
+
+
+global violent_videos
+violent_videos=[]
+
+def addVideosToList(name_video):
+    violent_videos.append(name_video)
+print("55555555555555555")
+print(violent_videos)
+
+listbox = tk.Listbox(window)
+listbox.pack()
+
+
+for item in violent_videos:
+    listbox.insert('end', item)
+
+listbox.place( x=60,y=300.0)
+
+
+
 window.resizable(False, False)
 window.mainloop()

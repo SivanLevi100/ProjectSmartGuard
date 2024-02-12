@@ -2,22 +2,24 @@
 import subprocess
 import Computer_Camera_without_pre_model
 from pathlib import Path
-
+import time
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-
+import tkinter as tk
+from PIL import ImageTk, Image
+import page4_tk
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\owner\Desktop\לימודים - שנה ג\סמסטר א\Tkinter-Designer-master (1)\Tkinter-Designer-master\build\assets\frame0")
+# ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\owner\Desktop\לימודים - שנה ג\סמסטר א\Tkinter-Designer-master (1)\Tkinter-Designer-master\build\assets\frame0")
 
 
 ASSETS_PATH1=OUTPUT_PATH/Path(r"Images_UI/frame_3")
 def relative_to_assets1(path: str) -> Path:
     return ASSETS_PATH1 / Path(path)
 
-def relative_to_assets(path: str) -> Path:
-    return ASSETS_PATH / Path(path)
+# def relative_to_assets(path: str) -> Path:
+#     return ASSETS_PATH / Path(path)
 
 
 window = Tk()
@@ -80,19 +82,20 @@ image_3 = canvas.create_image(
     248.0,
     image=image_image_3
 )
-def click_b2():
-    label = Computer_Camera_without_pre_model.main("NV_183.mp4")
+def click_classification():
+    print("print button classification")
+    #label = Computer_Camera_without_pre_model.main("NV_183.mp4")
 
 button_image_2 = PhotoImage(
     file=relative_to_assets1("button_2.png"))
-button_2 = Button(
+button_classification = Button(
     image=button_image_2,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: click_b2(),
+    command=lambda: click_classification(),
     relief="flat"
 )
-button_2.place(
+button_classification.place(
     x=298.0,
     y=233.0,
     width=112.0,
@@ -107,5 +110,46 @@ canvas.create_text(
     fill="#000000",
     font=("InriaSans Bold", 16 * -1)
 )
+
+
+
+# listbox = tk.Listbox(window)
+# listbox.pack()
+#
+# listbox.insert(1, "פריט 1")
+# listbox.insert(2, "פריט 2","image_4.png")
+# listbox.insert(3, "פריט 3","image_4.png")
+
+listbox = tk.Listbox(window)
+listbox.pack()
+
+#image = ImageTk.PhotoImage(Image.open("Images_UI/frame_2/image_4.png"))
+
+videos_list=["V_1", "NV_183"]
+
+for item in videos_list:
+    listbox.insert('end', item)
+
+listbox.place( x=60,y=300.0)
+
+listbox.config(height=70, width=20,font=("Times", 20),fg="blue",bg="black",borderwidth=2, relief="groove")
+
+#image = ImageTk.PhotoImage(Image.open("Images_UI/frame_2/image_4.png"))
+
+#listbox.insert(tk.END, "Item 1", image=image)
+def item_selected(event):
+    #subprocess.call(['python', 'page3_tk.py'])
+    selected_item = listbox.get(listbox.curselection())
+    label = Computer_Camera_without_pre_model.main(selected_item +".mp4")
+   # print(label)
+    if label == "Violent":
+        page4_tk.addVideosToList(selected_item)
+
+
+listbox.bind('<<ListboxSelect>>', item_selected)
+
+
+
+
 window.resizable(False, False)
 window.mainloop()

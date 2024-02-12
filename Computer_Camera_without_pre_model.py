@@ -1,6 +1,7 @@
-import threading
+#import threading
 import cv2
 import keras
+import tensorflow as tf
 import mediapipe as mp
 import numpy as np
 import pandas as pd
@@ -116,7 +117,7 @@ def main(video):
     cap.release()
     cv2.destroyAllWindows()
 
-    print("Final:")
+
     if counterNV > counterV:
         #print("Non Violence")
         return "Non Violence"
@@ -126,7 +127,6 @@ def main(video):
     if counterNV == counterV:
         #print("counterNV = counterV")
         return "counterNV = counterV"
-
 
 
 
