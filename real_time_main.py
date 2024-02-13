@@ -50,7 +50,7 @@ def on_close(event, x, y, flags, param):
   if event == cv2.EVENT_LBUTTONDOWN:
     cv2.destroyWindow("image")
 
-def main(video,model_file):
+def main(video):
     label = "Non Violence"  # Default label
 
     cap = cv2.VideoCapture(video)  # לפתוח מצלמה-0 או לשים סרטונים
@@ -58,7 +58,7 @@ def main(video,model_file):
     cv2.namedWindow("image")
     cv2.setMouseCallback("image", on_close)
 
-    model = keras.models.load_model(model_file)  # load our model from Colab
+    model = keras.models.load_model("Models/cnn_lstm_model_PRO.hdf5")  # load our model from Colab
     print(model.input_shape)  # The number of dimensions in the matrix (None, 10, 224, 224, 3)
 
     # i = 0

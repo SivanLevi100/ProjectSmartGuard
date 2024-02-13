@@ -2,7 +2,7 @@
 
 import subprocess
 from pathlib import Path
-
+import real_time_main
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
@@ -39,6 +39,7 @@ canvas = Canvas(
 )
 
 canvas.place(x = 0, y = 0)
+
 image_image_1 = PhotoImage(
     file=relative_to_assets1("image_1.png"))
 image_1 = canvas.create_image(
@@ -53,6 +54,7 @@ def click_b1():
 button_image_1 = PhotoImage(
     file=relative_to_assets1("button_1.png"))
 button_1 = Button(
+    bg="white",
     image=button_image_1,
     borderwidth=0,
     highlightthickness=0,
@@ -66,13 +68,13 @@ button_1.place(
     height=49.0
 )
 
-image_image_2 = PhotoImage(
-    file=relative_to_assets1("image_2.png"))
-image_2 = canvas.create_image(
-    231.0,
-    195.0,
-    image=image_image_2
-)
+# image_image_2 = PhotoImage(
+#     file=relative_to_assets1("image_2.png"))
+# image_2 = canvas.create_image(
+#     231.0,
+#     195.0,
+#     image=image_image_2
+# )
 
 
 global violent_videos
@@ -83,15 +85,40 @@ def addVideosToList(name_video):
 print("55555555555555555")
 print(violent_videos)
 
-listbox = tk.Listbox(window)
-listbox.pack()
+# listbox = tk.Listbox(window)
+# listbox.pack()
+#
+#
+# for item in violent_videos:
+#     listbox.insert('end', item)
+#
+# listbox.place( x=60,y=300.0)
 
 
-for item in violent_videos:
-    listbox.insert('end', item)
 
-listbox.place( x=60,y=300.0)
+def click_button_real_time():
+    print("real time button")
+    #window.destroy()
+    #subprocess.call(['python', 'page4_tk.py'])
+    #model_file="Models/cnn_lstm_model_PRO.hdf5"
+    real_time_main.main(0)
 
+button_real_time = PhotoImage(
+    file=relative_to_assets1("button_3.png"))
+
+button_Real_Time = Button(
+    image=button_real_time,
+    borderwidth=0,
+    highlightthickness=0,
+    command=lambda: click_button_real_time(),
+    relief="flat"
+)
+button_Real_Time.place(
+    x=55.0,
+    y=380.0,
+    width=146.0,
+    height=40.0
+)
 
 
 window.resizable(False, False)

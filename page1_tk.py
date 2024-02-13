@@ -96,11 +96,15 @@ button_Connect.place(
     width=110.0,
     height=41.0
 )
+
+
+
 def click_button_connect():
     if entry_1.get() == 'Admin' and entry_2.get() == '100':
-        print(entry_1.get())
-        subprocess.call(['python', 'page2_tk.py'])
         window.destroy()
+        subprocess.call(['python', 'page2_tk.py'])
+
+
 
 
 image_image_2 = PhotoImage(

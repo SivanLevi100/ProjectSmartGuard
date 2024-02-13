@@ -1,6 +1,6 @@
 
 import subprocess
-import keras
+
 import Videos_main
 from pathlib import Path
 import time
@@ -48,6 +48,7 @@ canvas.place(x = 0, y = 0)
 button_image_1 = PhotoImage(
     file=relative_to_assets1("button_1.png"))
 button_1 = Button(
+    bg="white",
     image=button_image_1,
     borderwidth=0,
     highlightthickness=0,
@@ -115,12 +116,6 @@ canvas.create_text(
 
 
 
-# listbox = tk.Listbox(window)
-# listbox.pack()
-#
-# listbox.insert(1, "פריט 1")
-# listbox.insert(2, "פריט 2","image_4.png")
-# listbox.insert(3, "פריט 3","image_4.png")
 
 listbox = tk.Listbox(window)
 listbox.pack()
@@ -142,8 +137,8 @@ listbox.config(height=70, width=20,font=("Times", 20),fg="blue",bg="black",borde
 def item_selected(event):
     #subprocess.call(['python', 'page3_tk.py'])
     selected_item = listbox.get(listbox.curselection())
-    model = keras.models.load_model("Models/cnn_lstm_model_PRO.hdf5")
-    label = Videos_main.main(selected_item +".mp4",model)
+    #model = keras.models.load_model("Models/cnn_lstm_model_PRO.hdf5")
+    label = Videos_main.main(selected_item +".mp4")
     print(label)
    #  if label == "Violent":
    #      page4_tk.addVideosToList(selected_item)
