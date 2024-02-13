@@ -1,40 +1,35 @@
-
+import subprocess
 from pathlib import Path
-
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 import subprocess
-#import Computer_Camera_without_pre_model
 
-OUTPUT_PATH = Path(__file__).parent
+
+
 # ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\owner\Desktop\לימודים - שנה ג\סמסטר א\Tkinter-Designer-master (1)\Tkinter-Designer-master\build\assets\frame0")
 
-ASSETS_PATH1=OUTPUT_PATH/Path(r"Images_UI/frame_1")
+OUTPUT_PATH = Path(__file__).parent
+ASSETS_PATH1 = OUTPUT_PATH / Path(r"Images_UI/frame_1")
 def relative_to_assets1(path: str) -> Path:
     return ASSETS_PATH1 / Path(path)
-
-# def relative_to_assets(path: str) -> Path:
-#     return ASSETS_PATH / Path(path)
-
 
 window = Tk()
 
 window.geometry("440x650")
-window.configure(bg = "#FFFFFF")
-
+window.configure(bg="#FFFFFF")
 
 canvas = Canvas(
     window,
-    bg = "#FFFFFF",
-    height = 650,
-    width = 440,
-    bd = 0,
-    highlightthickness = 0,
-    relief = "ridge"
+    bg="#FFFFFF",
+    height=650,
+    width=440,
+    bd=0,
+    highlightthickness=0,
+    relief="ridge"
 )
 
-canvas.place(x = 0, y = 0)
+canvas.place(x=0, y=0)
 image_image_1 = PhotoImage(
     file=relative_to_assets1("image_1.png"))
 image_1 = canvas.create_image(
@@ -76,19 +71,18 @@ entry_2 = Entry(
     fg="#000716",
     highlightthickness=0
 )
+
 entry_2.place(
     x=112.0,
     y=437.0,
     width=222.0,
     height=35.0
 )
-def click_button_connect():
-    window.destroy()
-    #subprocess.call(['python', 'page2_tk.py'])
-    subprocess.call(['python', 'page2_tk.py'])
+
 
 button_connect = PhotoImage(
     file=relative_to_assets1("button_1.png"))
+
 button_Connect = Button(
     image=button_connect,
     borderwidth=0,
@@ -102,6 +96,12 @@ button_Connect.place(
     width=110.0,
     height=41.0
 )
+def click_button_connect():
+    if entry_1.get() == 'Admin' and entry_2.get() == '100':
+        print(entry_1.get())
+        subprocess.call(['python', 'page2_tk.py'])
+        window.destroy()
+
 
 image_image_2 = PhotoImage(
     file=relative_to_assets1("image_2.png"))
@@ -162,5 +162,6 @@ canvas.create_text(
     fill="#000000",
     font=("InriaSans Bold", 14 * -1)
 )
+
 window.resizable(False, False)
 window.mainloop()
