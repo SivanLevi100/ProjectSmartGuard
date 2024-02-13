@@ -4,7 +4,8 @@ import subprocess
 import Videos_main
 from pathlib import Path
 import time
-
+import tkinter.ttk as ttk
+from tkinter import simpledialog
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
@@ -117,37 +118,74 @@ canvas.create_text(
 
 
 
-listbox = tk.Listbox(window)
-listbox.pack()
 
+global cls
+cls="none"
+label = tk.Label(window, text="The classification is: " + cls, bg="white", fg="blue")
 #image = ImageTk.PhotoImage(Image.open("Images_UI/frame_2/image_4.png"))
 
-videos_list=["V_1", "NV_183"]
-
-for item in videos_list:
-    listbox.insert('end', item)
-
-listbox.place( x=60,y=300.0)
-
-listbox.config(height=70, width=20,font=("Times", 20),fg="blue",bg="black",borderwidth=2, relief="groove")
-
-#image = ImageTk.PhotoImage(Image.open("Images_UI/frame_2/image_4.png"))
-
-#listbox.insert(tk.END, "Item 1", image=image)
-def item_selected(event):
-    #subprocess.call(['python', 'page3_tk.py'])
-    selected_item = listbox.get(listbox.curselection())
-    #model = keras.models.load_model("Models/cnn_lstm_model_PRO.hdf5")
-    label = Videos_main.main(selected_item +".mp4")
-    print(label)
-   #  if label == "Violent":
-   #      page4_tk.addVideosToList(selected_item)
+videos_list1=[
+    ["V_1","None"] ,
+    ["NV_183","None"]
+    ]
 
 
-listbox.bind('<<ListboxSelect>>', item_selected)
+index=0
+def read_data():
+   for index, line in enumerate(videos_list1):
+      tree.insert('', tk.END, iid = index,
+         text = line[0], values = line[1:])
+columns = ("cls")
+
+tree= ttk.Treeview(window, columns=columns ,height = 20)
+tree.pack(padx = 5, pady = 5)
+tree.heading('#0', text='name videos')
+tree.heading('cls', text='Cls')
+tree.place(x=50,y=300.0)
+read_data()
 
 
+def item_selected1(event):
+    selected_items = tree.selection()
+    item = tree.item(selected_items[0])
+    print(item['text'])
+    cls = Videos_main.main(item['text'] +".mp4")
+    if cls == "Violence":
+        label.config(text="The classification is: " + cls+"!!!",fg="red",font=("Arial", 16))
+    else:
+        label.config(text="The classification is: " + cls, fg="green",font=("Arial", 10))
+    label.pack()
+    tree.insert('end', cls)
 
+tree.bind("<<TreeviewSelect>>", item_selected1)
+
+
+# listbox = tk.Listbox(window)
+# listbox.pack()
+#
+# videos_list=["V_1", "NV_183"]
+#
+# for item in videos_list:
+#     listbox.insert('end', item)
+#
+#
+# listbox.place( x=60,y=300.0)
+#
+# listbox.config(height=70, width=20,font=("Times", 20),fg="blue",bg="black",borderwidth=2, relief="groove")
+#
+# def item_selected(event):
+#     selected_item = listbox.get(listbox.curselection())
+#     cls = Videos_main.main(selected_item +".mp4")
+#     if cls == "Violence":
+#         label.config(text="The classification is: " + cls+"!!!",fg="red",font=("Arial", 16))
+#     else:
+#         label.config(text="The classification is: " + cls, fg="green",font=("Arial", 10))
+#     label.pack()
+#     listbox.insert('end', cls)
+#
+# listbox.bind('<<ListboxSelect>>', item_selected1)
+#
+#
 
 window.resizable(False, False)
 window.mainloop()

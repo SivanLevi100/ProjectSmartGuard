@@ -1,11 +1,13 @@
 
 
 import subprocess
+import threading
 from pathlib import Path
 import real_time_main
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import messagebox
 
 import tkinter as tk
 OUTPUT_PATH = Path(__file__).parent
@@ -101,7 +103,15 @@ def click_button_real_time():
     #window.destroy()
     #subprocess.call(['python', 'page4_tk.py'])
     #model_file="Models/cnn_lstm_model_PRO.hdf5"
-    real_time_main.main(0)
+    cls = real_time_main.main(0)
+    if cls == "Violence":
+        label = tk.Label(window, text="The classification is: " + cls, bg="white", fg="red")
+        # label.place(x=50, y=100)
+        label.pack()
+    else:
+        label = tk.Label(window, text="The classification is: " + cls, bg="white", fg="green")
+        # label.place(x=50, y=100)
+        label.pack()
 
 button_real_time = PhotoImage(
     file=relative_to_assets1("button_3.png"))
