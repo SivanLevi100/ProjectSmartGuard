@@ -78,7 +78,7 @@ def main(video):
 
         # for j in range(10):# השאלה אם לעשות את הלולאה עבור כל 10 פריימים שונים או לקחת פריים אחד ולהכניס אותו 10 פעמים לתוך רשימה
         # ret == false - there is error
-        # for j in range(10):
+        #for j in range(10):
         ret, frame = cap.read()
 
         if cv2.getWindowProperty("image", cv2.WND_PROP_VISIBLE) < 1:
@@ -88,10 +88,10 @@ def main(video):
             frame_original = cv2.resize(frame, (500, 500))
             frame = cv2.resize(frame, (IMAGE_SIZE, IMAGE_SIZE))  # Adjusts the frame to the size the model knows
             frame = frame / 255
-            #time.sleep(0.04)
+            #time.sleep(0.02)
             # time.sleep(0.04)   תשימו לב שאם שולחים סרטון אז זה מאט את הקצב כי הסרטון רץ מהר!ואם עושים ממצלמה לא צריך את זה
             for j in range(10):
-                frames_list.append(frame)
+              frames_list.append(frame)
         else:
             break
 
@@ -125,17 +125,17 @@ def main(video):
     cap.release()
     cv2.destroyAllWindows()
 
-
+    print("################")
     if counterNV > counterV:
-        #print("Non Violence")
+        print("Non Violence")
         return "Non Violence"
     if counterNV < counterV:
-        #print("Violence")
+        print("Violence")
         return "Violence"
     if counterNV == counterV:
-        #print("counterNV = counterV")
+        print("counterNV = counterV")
         return "counterNV = counterV"
 
 
-#main("V_1.mp4","Models/cnn_lstm_model_PRO.hdf5")
+#main("Good Vidoes for class/NV_youtube.mp4")
 
