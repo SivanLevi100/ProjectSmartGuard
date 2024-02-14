@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 from concurrent.futures import ThreadPoolExecutor
 import time
+#import constants
 
 global label
 global IMAGE_HEIGHT
@@ -15,6 +16,11 @@ global original_size
 global counterNV
 global counterV
 global frame_original
+
+# @constants.constant
+# def model1():
+#     return keras.models.load_model("Models/cnn_lstm_model_PRO.hdf5")
+
 def draw_class_on_image(label, frame):  # Draw the label on the image
     font = cv2.FONT_HERSHEY_SIMPLEX
     bottomLeftCornerOfText = (10, 30)
@@ -137,5 +143,5 @@ def main(video):
         return "counterNV = counterV"
 
 
-#main("Good Vidoes for class/NV_youtube.mp4")
+main("Good Vidoes for class/NV_youtube.mp4")
 

@@ -86,25 +86,25 @@ image_3 = canvas.create_image(
     248.0,
     image=image_image_3
 )
-def click_classification():
-    print("print button classification")
-    #label = Computer_Camera_without_pre_model.main("NV_183.mp4")
-
-button_image_2 = PhotoImage(
-    file=relative_to_assets1("button_2.png"))
-button_classification = Button(
-    image=button_image_2,
-    borderwidth=0,
-    highlightthickness=0,
-    command=lambda: click_classification(),
-    relief="flat"
-)
-button_classification.place(
-    x=298.0,
-    y=233.0,
-    width=112.0,
-    height=29.0
-)
+# def click_classification():
+#     print("print button classification")
+#     #label = Computer_Camera_without_pre_model.main("NV_183.mp4")
+#
+# button_image_2 = PhotoImage(
+#     file=relative_to_assets1("button_2.png"))
+# button_classification = Button(
+#     image=button_image_2,
+#     borderwidth=0,
+#     highlightthickness=0,
+#     command=lambda: click_classification(),
+#     relief="flat"
+# )
+# button_classification.place(
+#     x=298.0,
+#     y=233.0,
+#     width=112.0,
+#     height=29.0
+# )
 
 canvas.create_text(
     34.0,
@@ -137,25 +137,33 @@ def read_data():
          text = line[0], values = line[1:])
 columns = ("cls")
 
-tree= ttk.Treeview(window, columns=columns ,height = 20)
+tree= ttk.Treeview(window, columns=columns ,height = 14)
 tree.pack(padx = 5, pady = 5)
 tree.heading('#0', text='name videos')
 tree.heading('cls', text='Cls')
-tree.place(x=50,y=300.0)
+tree.place(x=20,y=300.0)
 read_data()
 
 
 def item_selected1(event):
     selected_items = tree.selection()
     item = tree.item(selected_items[0])
-    print(item['text'])
-    cls = Videos_main.main(item['text'] +".mp4")
+    cls = Videos_main.main(item['text'] +".mp4") #A call to the classification function
     if cls == "Violence":
         label.config(text="The classification is: " + cls+"!!!",fg="red",font=("Arial", 16))
     else:
         label.config(text="The classification is: " + cls, fg="green",font=("Arial", 10))
     label.pack()
-    tree.insert('end', cls)
+    #Inserting the classification into the list
+    if selected_items:
+        item = selected_items[0]
+        tree.set(item, "#1", cls)
+
+    # tree.tag_configure('color_text', foreground='red')
+    # selected_item = tree.selection()
+    # tree.item(selected_item[0], tags=('color_text'))
+    # tree.update()
+
 
 tree.bind("<<TreeviewSelect>>", item_selected1)
 
