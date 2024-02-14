@@ -14,22 +14,16 @@ from PIL import ImageTk, Image
 
 
 OUTPUT_PATH = Path(__file__).parent
-# ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\owner\Desktop\לימודים - שנה ג\סמסטר א\Tkinter-Designer-master (1)\Tkinter-Designer-master\build\assets\frame0")
-
-
 ASSETS_PATH1=OUTPUT_PATH/Path(r"Images_UI/frame_3")
+
 def relative_to_assets1(path: str) -> Path:
     return ASSETS_PATH1 / Path(path)
-
-# def relative_to_assets(path: str) -> Path:
-#     return ASSETS_PATH / Path(path)
 
 
 window = Tk()
 
 window.geometry("440x650")
 window.configure(bg = "#FFFFFF")
-
 
 canvas = Canvas(
     window,
@@ -40,23 +34,23 @@ canvas = Canvas(
     highlightthickness = 0,
     relief = "ridge"
 )
-def click_b1():
+canvas.place(x = 0, y = 0)
+
+def click_home():
     window.destroy()
     subprocess.call(['python', 'page2_tk.py'])
 
-
-canvas.place(x = 0, y = 0)
 button_image_1 = PhotoImage(
     file=relative_to_assets1("button_1.png"))
-button_1 = Button(
+button_home = Button(
     bg="white",
     image=button_image_1,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: click_b1(),
+    command=lambda: click_home(),
     relief="flat"
 )
-button_1.place(
+button_home.place(
     x=19.0,
     y=15.0,
     width=64.0,
@@ -65,7 +59,7 @@ button_1.place(
 
 image_image_1 = PhotoImage(
     file=relative_to_assets1("image_1.png"))
-image_1 = canvas.create_image(
+image_title = canvas.create_image(
     220.0,
     111.0,
     image=image_image_1
@@ -73,19 +67,13 @@ image_1 = canvas.create_image(
 
 image_image_2 = PhotoImage(
     file=relative_to_assets1("image_2.png"))
-image_2 = canvas.create_image(
-    200.0,
-    183.0,
-    image=image_image_2
-)
+image_unclassifiedVideos = canvas.create_image(200.0,183.0,image=image_image_2)
+
 
 image_image_3 = PhotoImage(
     file=relative_to_assets1("image_3.png"))
-image_3 = canvas.create_image(
-    17.0,
-    248.0,
-    image=image_image_3
-)
+image_search_icon = canvas.create_image(17.0,248.0,image=image_image_3)
+
 # def click_classification():
 #     print("print button classification")
 #     #label = Computer_Camera_without_pre_model.main("NV_183.mp4")
@@ -116,19 +104,39 @@ canvas.create_text(
 )
 
 
-
-
-
 global cls
 cls="none"
 label = tk.Label(window, text="The classification is: " + cls, bg="white", fg="blue")
-#image = ImageTk.PhotoImage(Image.open("Images_UI/frame_2/image_4.png"))
+
+# videos_list1=[
+#     ["V_1","None"] ,
+#     ["NV_183","None"]
+#     ]
+
+
 
 videos_list1=[
-    ["V_1","None"] ,
-    ["NV_183","None"]
+    ["V_1", "None"],
+    ["NV_183", "None"],
+    ["A Prague kindergarte", "None"],  # NV
+    ["Children hugging their father", "None"],  # NV
+    ["Camera phone at school", "None"],  # V
+    ["People are crossing a crosswalk", "None"],  # NV
+    ["Driver violence on the road", "None"],  # V
+    ["Gun battle", "None"],  # V
+    ["people at bus station", "None"],  # NV
+    ["Security camera in the store", "None"],  # V
+    ["people walk in mall", "None"],  # NV
+    ["pupils in class", "None"],  # NV
+    ["Security camera on the street", "None"],  # V
+    ["Pupils leave the classroom", "None"],  # NV
+    ["Violence against police officers", "None"],  # V
+    ["Violence in a hospital", "None"],  # V
+    ["Running competition", "None"],  # NV
+    ["The chef games", "None"],  # NV
+    ["Violence in Jerusalem on Jaffa Street", "None"],  # V
+    ["X factor israel", "None"]  # NV
     ]
-
 
 index=0
 def read_data():
@@ -139,16 +147,20 @@ columns = ("cls")
 
 tree= ttk.Treeview(window, columns=columns ,height = 14)
 tree.pack(padx = 5, pady = 5)
-tree.heading('#0', text='name videos')
-tree.heading('cls', text='Cls')
+tree.heading('#0', text='Name videos')
+tree.heading('cls', text='Classification')
 tree.place(x=20,y=300.0)
 read_data()
+
 
 
 def item_selected1(event):
     selected_items = tree.selection()
     item = tree.item(selected_items[0])
-    cls = Videos_main.main(item['text'] +".mp4") #A call to the classification function
+    # A call to the classification function
+    #cls = Videos_main.main(item['text'] + ".mp4")
+    #cls = Videos_main.main("youtube_vidoes_non_violence/" + item['text'] +".mp4")
+    cls = Videos_main.main("youtube_vidoes_violence/" + item['text'] + ".mp4")
     if cls == "Violence":
         label.config(text="The classification is: " + cls+"!!!",fg="red",font=("Arial", 16))
     else:
@@ -163,7 +175,6 @@ def item_selected1(event):
     # selected_item = tree.selection()
     # tree.item(selected_item[0], tags=('color_text'))
     # tree.update()
-
 
 tree.bind("<<TreeviewSelect>>", item_selected1)
 

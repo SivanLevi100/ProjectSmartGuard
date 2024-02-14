@@ -140,5 +140,5 @@ def main(video):
         return "counterNV = counterV"
 
 
-main("youtube_vidoes_violence/הקלטה 2024-02-14 212723.mp4")
+#main("youtube_vidoes_violence/A Prague kindergarte.mp4")
 

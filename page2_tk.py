@@ -11,17 +11,11 @@ from tkinter import messagebox
 #import real_time_main
 
 
-
-
-# ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\owner\Desktop\לימודים - שנה ג\סמסטר א\Tkinter-Designer-master (1)\Tkinter-Designer-master\build\assets\frame0")
-
-
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH1=OUTPUT_PATH/Path(r"Images_UI/frame_2")
+
 def relative_to_assets1(path: str) -> Path:
     return ASSETS_PATH1 / Path(path)
-
-
 
 
 window = Tk()
@@ -39,11 +33,11 @@ canvas = Canvas(
     highlightthickness = 0,
     relief = "ridge"
 )
+canvas.place(x = 0, y = 0)
 def click_button_exit():
     window.destroy()
     subprocess.call(['python', 'page1_tk.py'])
 
-canvas.place(x = 0, y = 0)
 button_exit = PhotoImage(
     file=relative_to_assets1("image_5.png"))
 button_Exit = Button(
@@ -63,26 +57,17 @@ button_Exit.place(
 
 image_image_1 = PhotoImage(
     file=relative_to_assets1("image_1.png"))
-image_1 = canvas.create_image(
-    220.0,
-    110.0,
-    image=image_image_1
-)
+image_title = canvas.create_image(220.0,110.0,image=image_image_1)
 
 image_image_2 = PhotoImage(
     file=relative_to_assets1("image_2.png"))
-image_2 = canvas.create_image(
-    115.0,
-    277.0,
-    image=image_image_2
-)
+image_view_icon = canvas.create_image(115.0,277.0,image=image_image_2)
 
 def show_message():
     messagebox.showinfo("Loading", "Loading the classification model")
 
 def click_button_Class():
     window.destroy()
-    #לעשות הודעה קופצת עם סימן של טעינה לזמן מסוים למשל 10 שניות
     x = threading.Thread(target=show_message)
     x.start()
     subprocess.call(['python', 'page3_tk.py'])
@@ -109,12 +94,10 @@ def click_button_real_time():
     x = threading.Thread(target=show_message)
     x.start()
     subprocess.call(['python', 'page4_tk.py'])
-    #model_file="Models/cnn_lstm_model_PRO.hdf5"
-    #real_time_main.main(0)
+
 
 button_real_time = PhotoImage(
     file=relative_to_assets1("button_3.png"))
-
 button_Real_Time = Button(
     image=button_real_time,
     borderwidth=0,
@@ -131,15 +114,11 @@ button_Real_Time.place(
 
 image_image_3 = PhotoImage(
     file=relative_to_assets1("image_3.png"))
-image_3 = canvas.create_image(
-    311.0,
-    277.0,
-    image= image_image_3
-)
+image_search_icon = canvas.create_image(311.0,277.0, image= image_image_3)
+
 def click_Violent_Video():
     window.destroy()
     subprocess.call(['python', 'page4_tk.py'])
-
 
 button_violent_videos = PhotoImage(
     file=relative_to_assets1("button_4.png"))
@@ -159,10 +138,7 @@ button_Violent_Videos.place(
 
 image_image_4 = PhotoImage(
     file=relative_to_assets1("image_4.png"))
-image_4 = canvas.create_image(
-    220.0,
-    430.0,
-    image=image_image_4
-)
+image_warning_icon = canvas.create_image(220.0,430.0,image=image_image_4)
+
 window.resizable(False, False)
 window.mainloop()
