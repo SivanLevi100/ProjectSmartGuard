@@ -46,7 +46,7 @@ def detect(model, frames):  # Classifies the frames by the model and return the 
     predicted_labels_probabilities = model.predict(frames)
     print('#################################')
     print(predicted_labels_probabilities)
-    if predicted_labels_probabilities[0][0] > 0.5:
+    if predicted_labels_probabilities[0][0] > 0.56:
         label = "Violence"
     else:
         label = "Non Violence"
@@ -84,21 +84,18 @@ def main(video):
 
         # for j in range(10):# השאלה אם לעשות את הלולאה עבור כל 10 פריימים שונים או לקחת פריים אחד ולהכניס אותו 10 פעמים לתוך רשימה
         # ret == false - there is error
-        #for j in range(10):
-        ret, frame = cap.read()
+        for j in range(10):
+         ret, frame = cap.read()
 
-        if cv2.getWindowProperty("image", cv2.WND_PROP_VISIBLE) < 1:
-            break
-
-        if ret == True:
+         if ret == True:
             frame_original = cv2.resize(frame, (500, 500))
             frame = cv2.resize(frame, (IMAGE_SIZE, IMAGE_SIZE))  # Adjusts the frame to the size the model knows
             frame = frame / 255
-            #time.sleep(0.02)
+            # time.sleep(0.04)
             # time.sleep(0.04)   תשימו לב שאם שולחים סרטון אז זה מאט את הקצב כי הסרטון רץ מהר!ואם עושים ממצלמה לא צריך את זה
-            for j in range(10):
-              frames_list.append(frame)
-        else:
+            #for j in range(10):
+            frames_list.append(frame)
+         else:
             break
 
         if len(frames_list) < 10:
@@ -143,5 +140,5 @@ def main(video):
         return "counterNV = counterV"
 
 
-main("Good Vidoes for class/NV_youtube.mp4")
+main("youtube_vidoes_violence/הקלטה 2024-02-14 212723.mp4")
 
