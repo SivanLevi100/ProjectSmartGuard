@@ -13,9 +13,11 @@ OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH1 = OUTPUT_PATH / Path(r"Images_UI/frame_1")
 def relative_to_assets1(path: str) -> Path:
     return ASSETS_PATH1 / Path(path)
+x = 350
+y = 80
 
 window = Tk()
-
+window.geometry(f'+{x}+{y}')
 window.geometry("440x650")
 window.configure(bg="#FFFFFF")
 

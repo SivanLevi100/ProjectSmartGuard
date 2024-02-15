@@ -54,8 +54,11 @@ def detect(model, frames):  # Classifies the frames by the model and return the 
     return label
 
 def on_close(event, x, y, flags, param):
-  if event == cv2.EVENT_LBUTTONDOWN:
-    cv2.destroyWindow("image")
+  # if event == cv2.EVENT_LBUTTONDOWN:
+  #   cv2.destroyWindow("image")
+    if event == cv2.EVENT_LBUTTONDOWN:
+        cv2.destroyAllWindows()
+
 
 def main(video):
     label = "Non Violence"  # Default label
@@ -63,7 +66,9 @@ def main(video):
     cap = cv2.VideoCapture(video)  # לפתוח מצלמה-0 או לשים סרטונים
 
     cv2.namedWindow("image")
-    cv2.setMouseCallback("image", on_close)
+    x = 850
+    y = 80
+    cv2.moveWindow("image", x, y)
 
     model = keras.models.load_model("Models/cnn_lstm_model_PRO.hdf5")  # load our model from Colab
     print(model.input_shape)  # The number of dimensions in the matrix (None, 10, 224, 224, 3)
@@ -78,20 +83,22 @@ def main(video):
     counterV = 0
     counterNV = 0
 
+    cv2.setMouseCallback("image", on_close)
+
 
     while True:
         frames_list = []
-
         # for j in range(10):# השאלה אם לעשות את הלולאה עבור כל 10 פריימים שונים או לקחת פריים אחד ולהכניס אותו 10 פעמים לתוך רשימה
         # ret == false - there is error
         for j in range(10):
          ret, frame = cap.read()
 
+
          if ret == True:
             frame_original = cv2.resize(frame, (500, 500))
             frame = cv2.resize(frame, (IMAGE_SIZE, IMAGE_SIZE))  # Adjusts the frame to the size the model knows
             frame = frame / 255
-            # time.sleep(0.04)
+            time.sleep(0.01)
             # time.sleep(0.04)   תשימו לב שאם שולחים סרטון אז זה מאט את הקצב כי הסרטון רץ מהר!ואם עושים ממצלמה לא צריך את זה
             #for j in range(10):
             frames_list.append(frame)
@@ -125,6 +132,7 @@ def main(video):
         if cv2.waitKey(1) == ord('q'):
             break
 
+
     cap.release()
     cv2.destroyAllWindows()
 
@@ -140,5 +148,6 @@ def main(video):
         return "counterNV = counterV"
 
 
-#main("youtube_vidoes_violence/A Prague kindergarte.mp4")
+
+#main("youtube_vidoes/A Prague kindergarte.mp4")
 

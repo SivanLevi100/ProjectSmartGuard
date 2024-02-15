@@ -11,7 +11,7 @@ from tkinter import simpledialog
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 import tkinter as tk
 from PIL import ImageTk, Image
-
+import pygame
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH1=OUTPUT_PATH/Path(r"Images_UI/frame_3")
@@ -20,7 +20,11 @@ def relative_to_assets1(path: str) -> Path:
     return ASSETS_PATH1 / Path(path)
 
 
+x = 350
+y = 80
 window = Tk()
+window.geometry(f'+{x}+{y}')
+
 
 window.geometry("440x650")
 window.configure(bg = "#FFFFFF")
@@ -116,8 +120,6 @@ label = tk.Label(window, text="The classification is: " + cls, bg="white", fg="b
 
 
 videos_list1=[
-    ["V_1", "None"],
-    ["NV_183", "None"],
     ["A Prague kindergarte", "None"],  # NV
     ["Children hugging their father", "None"],  # NV
     ["Camera phone at school", "None"],  # V
@@ -159,10 +161,16 @@ def item_selected1(event):
     item = tree.item(selected_items[0])
     # A call to the classification function
     #cls = Videos_main.main(item['text'] + ".mp4")
-    #cls = Videos_main.main("youtube_vidoes_non_violence/" + item['text'] +".mp4")
-    cls = Videos_main.main("youtube_vidoes_violence/" + item['text'] + ".mp4")
+    cls = Videos_main.main("youtube_vidoes/" + item['text'] +".mp4")
     if cls == "Violence":
         label.config(text="The classification is: " + cls+"!!!",fg="red",font=("Arial", 16))
+        #Play a warning sound
+        pygame.init()
+        pygame.mixer.music.load("WARNING_SOUND.mp3")
+        pygame.mixer.music.set_volume(0.2)
+        pygame.mixer.music.play()
+        # time.sleep(5)
+        # pygame.mixer.music.stop()
     else:
         label.config(text="The classification is: " + cls, fg="green",font=("Arial", 10))
     label.pack()

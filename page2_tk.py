@@ -17,8 +17,10 @@ ASSETS_PATH1=OUTPUT_PATH/Path(r"Images_UI/frame_2")
 def relative_to_assets1(path: str) -> Path:
     return ASSETS_PATH1 / Path(path)
 
-
+x = 350
+y = 80
 window = Tk()
+window.geometry(f'+{x}+{y}')
 
 window.geometry("440x650")
 window.configure(bg = "#FFFFFF")
@@ -120,25 +122,25 @@ def click_Violent_Video():
     window.destroy()
     subprocess.call(['python', 'page4_tk.py'])
 
-button_violent_videos = PhotoImage(
-    file=relative_to_assets1("button_4.png"))
-button_Violent_Videos = Button(
-    image=button_violent_videos,
-    borderwidth=0,
-    highlightthickness=0,
-    command=lambda: click_Violent_Video(),
-    relief="flat"
-)
-button_Violent_Videos.place(
-    x=160.0,
-    y=456.0,
-    width=120.0,
-    height=55.0
-)
+# button_violent_videos = PhotoImage(
+#     file=relative_to_assets1("button_4.png"))
+# button_Violent_Videos = Button(
+#     image=button_violent_videos,
+#     borderwidth=0,
+#     highlightthickness=0,
+#     command=lambda: click_Violent_Video(),
+#     relief="flat"
+# )
+# button_Violent_Videos.place(
+#     x=160.0,
+#     y=456.0,
+#     width=120.0,
+#     height=55.0
+# )
 
-image_image_4 = PhotoImage(
-    file=relative_to_assets1("image_4.png"))
-image_warning_icon = canvas.create_image(220.0,430.0,image=image_image_4)
+# image_image_4 = PhotoImage(
+#     file=relative_to_assets1("image_4.png"))
+# image_warning_icon = canvas.create_image(220.0,430.0,image=image_image_4)
 
 window.resizable(False, False)
 window.mainloop()
