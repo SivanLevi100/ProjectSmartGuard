@@ -7,6 +7,7 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 import subprocess
 import pygame
 import time
+import tkinter as tk
 
 # ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\owner\Desktop\לימודים - שנה ג\סמסטר א\Tkinter-Designer-master (1)\Tkinter-Designer-master\build\assets\frame0")
 
@@ -73,17 +74,16 @@ entry_2.place(
     height=35.0
 )
 
+
 #Function - button click event
 def click_button_connect():
     #Added a button click sound
     pygame.init()
     pygame.mixer.music.load("ButtonSoundEffect.mp3")
-    pygame.mixer.music.set_volume(0.2)
     pygame.mixer.music.play()
-    #At the click of a button, check if the correct username and password have been entered, and if so, the next page will open
-    if entry_1.get() == 'Admin' and entry_2.get() == '100':
-        window.destroy()
-        subprocess.call(['python', 'page2_tk.py'])#Opening the requested page
+
+    window.destroy()
+    subprocess.call(['python', 'page2_tk.py'])  # Opening the requested page
 
 
 button_connect = PhotoImage(
@@ -94,7 +94,9 @@ button_Connect = Button(
     borderwidth=0,
     highlightthickness=0,
     command=lambda: click_button_connect(),
-    relief="flat"
+    relief="flat",
+    #state="disabled"
+    state=tk.DISABLED
 )
 button_Connect.place(
     x=168.0,
@@ -102,6 +104,17 @@ button_Connect.place(
     width=110.0,
     height=41.0
 )
+
+#If the username and password are correct then the button will be available
+def check_entries(*args):
+    if entry_1.get() == 'Admin' and entry_2.get() == '100':
+        button_Connect.config(state=tk.ACTIVE)
+    else:
+        button_Connect.config(state=tk.DISABLED)
+
+#If you enter text in the username and password field, then the function that checks the correctness of the input is called
+entry_1.bind("<KeyRelease>", check_entries)
+entry_2.bind("<KeyRelease>", check_entries)
 
 
 image_image_2 = PhotoImage(

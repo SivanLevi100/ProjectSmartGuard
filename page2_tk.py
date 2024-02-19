@@ -40,7 +40,6 @@ def click_button_exit():
     # Added a button click sound
     pygame.init()
     pygame.mixer.music.load("ButtonSoundEffect.mp3")
-    pygame.mixer.music.set_volume(0.2)
     pygame.mixer.music.play()
     window.destroy()
     subprocess.call(['python', 'page1_tk.py']) #Opening the requested page
@@ -79,7 +78,6 @@ def click_button_Class():
     #Added a button click sound
     pygame.init()
     pygame.mixer.music.load("ButtonSoundEffect.mp3")
-    pygame.mixer.music.set_volume(0.2)
     pygame.mixer.music.play()
     window.destroy()
     x = threading.Thread(target=show_message)

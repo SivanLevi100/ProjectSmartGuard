@@ -44,7 +44,6 @@ def click_home():
     # Added a button click sound
     pygame.init()
     pygame.mixer.music.load("ButtonSoundEffect.mp3")
-    pygame.mixer.music.set_volume(0.2)
     pygame.mixer.music.play()
     window.destroy()
     subprocess.call(['python', 'page2_tk.py'])#Opening the requested page
