@@ -1,13 +1,12 @@
 
-import subprocess
+#Page 3 - List of unclassified videos - To classify a video, click on its name in the list and receive the classification.
 
+import subprocess
 import Videos_main
 from pathlib import Path
 import time
 import tkinter.ttk as ttk
 from tkinter import simpledialog
-# from tkinter import *
-# Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 import tkinter as tk
 from PIL import ImageTk, Image
@@ -16,16 +15,16 @@ import pygame
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH1=OUTPUT_PATH/Path(r"Images_UI/frame_3")
 
+#A function that accepts a path and returns a relative path
 def relative_to_assets1(path: str) -> Path:
     return ASSETS_PATH1 / Path(path)
 
 
 x = 350
 y = 80
+
 window = Tk()
 window.geometry(f'+{x}+{y}')
-
-
 window.geometry("440x650")
 window.configure(bg = "#FFFFFF")
 
@@ -40,9 +39,15 @@ canvas = Canvas(
 )
 canvas.place(x = 0, y = 0)
 
+#Function - button click event
 def click_home():
+    # Added a button click sound
+    pygame.init()
+    pygame.mixer.music.load("ButtonSoundEffect.mp3")
+    pygame.mixer.music.set_volume(0.2)
+    pygame.mixer.music.play()
     window.destroy()
-    subprocess.call(['python', 'page2_tk.py'])
+    subprocess.call(['python', 'page2_tk.py'])#Opening the requested page
 
 button_image_1 = PhotoImage(
     file=relative_to_assets1("button_1.png"))
@@ -63,11 +68,7 @@ button_home.place(
 
 image_image_1 = PhotoImage(
     file=relative_to_assets1("image_1.png"))
-image_title = canvas.create_image(
-    220.0,
-    111.0,
-    image=image_image_1
-)
+image_title = canvas.create_image(220.0,111.0,image=image_image_1)
 
 image_image_2 = PhotoImage(
     file=relative_to_assets1("image_2.png"))
@@ -78,26 +79,6 @@ image_image_3 = PhotoImage(
     file=relative_to_assets1("image_3.png"))
 image_search_icon = canvas.create_image(17.0,248.0,image=image_image_3)
 
-# def click_classification():
-#     print("print button classification")
-#     #label = Computer_Camera_without_pre_model.main("NV_183.mp4")
-#
-# button_image_2 = PhotoImage(
-#     file=relative_to_assets1("button_2.png"))
-# button_classification = Button(
-#     image=button_image_2,
-#     borderwidth=0,
-#     highlightthickness=0,
-#     command=lambda: click_classification(),
-#     relief="flat"
-# )
-# button_classification.place(
-#     x=298.0,
-#     y=233.0,
-#     width=112.0,
-#     height=29.0
-# )
-
 canvas.create_text(
     34.0,
     238.0,
@@ -107,18 +88,12 @@ canvas.create_text(
     font=("InriaSans Bold", 16 * -1)
 )
 
-
 global cls
-cls="none"
+cls = "none"
+#A label showing the video's classification
 label = tk.Label(window, text="The classification is: " + cls, bg="white", fg="blue")
 
-# videos_list1=[
-#     ["V_1","None"] ,
-#     ["NV_183","None"]
-#     ]
-
-
-
+#An array containing all existing videos before classification
 videos_list1=[
     ["A Prague kindergarte", "None"],  # NV
     ["Children hugging their father", "None"],  # NV
@@ -140,11 +115,10 @@ videos_list1=[
     ["X factor israel", "None"]  # NV
     ]
 
-index=0
 def read_data():
    for index, line in enumerate(videos_list1):
-      tree.insert('', tk.END, iid = index,
-         text = line[0], values = line[1:])
+      tree.insert('', tk.END, text = line[0], values = line[1:])
+
 columns = ("cls")
 
 tree= ttk.Treeview(window, columns=columns ,height = 14)
@@ -155,24 +129,28 @@ tree.place(x=20,y=300.0)
 read_data()
 
 
+#Function - Click event on an item in the list.
+def item_selected(event):
+    # Added a button click sound
+    pygame.init()
+    pygame.mixer.music.load("ButtonSoundEffect.mp3")
+    pygame.mixer.music.play()
 
-def item_selected1(event):
     selected_items = tree.selection()
     item = tree.item(selected_items[0])
     # A call to the classification function
-    #cls = Videos_main.main(item['text'] + ".mp4")
     cls = Videos_main.main("youtube_vidoes/" + item['text'] +".mp4")
     if cls == "Violence":
-        label.config(text="The classification is: " + cls+"!!!",fg="red",font=("Arial", 16))
+        label.config(text="The classification is: " + cls+"!!!",fg="red",font=("Arial", 16))#Label showing classification: Violence
         #Play a warning sound
         pygame.init()
         pygame.mixer.music.load("WARNING_SOUND.mp3")
         pygame.mixer.music.set_volume(0.2)
         pygame.mixer.music.play()
-        # time.sleep(5)
-        # pygame.mixer.music.stop()
+        time.sleep(3)
+        pygame.mixer.music.stop()
     else:
-        label.config(text="The classification is: " + cls, fg="green",font=("Arial", 10))
+        label.config(text="The classification is: " + cls, fg="green",font=("Arial", 12))#Label showing classification: Non Violence
     label.pack()
     #Inserting the classification into the list
     if selected_items:
@@ -184,35 +162,8 @@ def item_selected1(event):
     # tree.item(selected_item[0], tags=('color_text'))
     # tree.update()
 
-tree.bind("<<TreeviewSelect>>", item_selected1)
+tree.bind("<<TreeviewSelect>>", item_selected)#When clicking on an item in the list, the item_selected function is activated
 
-
-# listbox = tk.Listbox(window)
-# listbox.pack()
-#
-# videos_list=["V_1", "NV_183"]
-#
-# for item in videos_list:
-#     listbox.insert('end', item)
-#
-#
-# listbox.place( x=60,y=300.0)
-#
-# listbox.config(height=70, width=20,font=("Times", 20),fg="blue",bg="black",borderwidth=2, relief="groove")
-#
-# def item_selected(event):
-#     selected_item = listbox.get(listbox.curselection())
-#     cls = Videos_main.main(selected_item +".mp4")
-#     if cls == "Violence":
-#         label.config(text="The classification is: " + cls+"!!!",fg="red",font=("Arial", 16))
-#     else:
-#         label.config(text="The classification is: " + cls, fg="green",font=("Arial", 10))
-#     label.pack()
-#     listbox.insert('end', cls)
-#
-# listbox.bind('<<ListboxSelect>>', item_selected1)
-#
-#
 
 window.resizable(False, False)
 window.mainloop()
