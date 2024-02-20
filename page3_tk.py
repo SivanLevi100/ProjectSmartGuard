@@ -20,12 +20,12 @@ def relative_to_assets1(path: str) -> Path:
     return ASSETS_PATH1 / Path(path)
 
 
-x = 350
-y = 80
+x = 300
+y = 30
 
 window = Tk()
 window.geometry(f'+{x}+{y}')
-window.geometry("440x650")
+window.geometry("440x600")
 window.configure(bg = "#FFFFFF")
 
 canvas = Canvas(
@@ -124,7 +124,7 @@ tree= ttk.Treeview(window, columns=columns ,height = 14)
 tree.pack(padx = 5, pady = 5)
 tree.heading('#0', text='Name videos')
 tree.heading('cls', text='Classification')
-tree.place(x=20,y=300.0)
+tree.place(x=20,y=270.0)
 read_data()
 
 

@@ -41,9 +41,9 @@ def detect(model, frames):  # Classifies the frames by the model and return the 
     print('#################################')
     print(predicted_labels_probabilities)
     if predicted_labels_probabilities[0][0] > 0.5:
-        label = "Non Violence"
-    else:
         label = "Violence"
+    else:
+        label = "Non Violence"
 
     return label
 def on_close(event, x, y, flags, param):
@@ -85,8 +85,6 @@ def main(video):
             frame_original = cv2.resize(frame, (500, 500))
             frame = cv2.resize(frame, (IMAGE_SIZE, IMAGE_SIZE))  # Adjusts the frame to the size the model knows
             frame = frame / 255
-            # time.sleep(0.04)
-            # time.sleep(0.04)   תשימו לב שאם שולחים סרטון אז זה מאט את הקצב כי הסרטון רץ מהר!ואם עושים ממצלמה לא צריך את זה
             for j in range(10):
                 frames_list.append(frame)
         else:
@@ -128,11 +126,11 @@ def main(video):
         #print("Non Violence")
         return "Non Violence"
     if counterNV < counterV:
-        #print("Violence")
+    #    #print("Violence")
         return "Violence"
     if counterNV == counterV:
-        #print("counterNV = counterV")
-        return "counterNV = counterV"
+       #print("counterNV = counterV")
+       return "counterNV = counterV"
 
 
 #main(0,"Models/cnn_lstm_model_PRO.hdf5")

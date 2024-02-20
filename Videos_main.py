@@ -66,7 +66,7 @@ def main(video):
     cap = cv2.VideoCapture(video)  # לפתוח מצלמה-0 או לשים סרטונים
 
     cv2.namedWindow("image")
-    x = 850
+    x = 740
     y = 80
     cv2.moveWindow("image", x, y)
 

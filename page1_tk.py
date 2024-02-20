@@ -19,12 +19,12 @@ def relative_to_assets1(path: str) -> Path:
     return ASSETS_PATH1 / Path(path)
 
 
-x = 350
-y = 80
+x = 300
+y = 30
 
 window = Tk()
 window.geometry(f'+{x}+{y}')
-window.geometry("440x650")
+window.geometry("440x600")
 window.configure(bg="#FFFFFF")
 
 canvas = Canvas(
@@ -78,9 +78,9 @@ entry_2.place(
 #Function - button click event
 def click_button_connect():
     #Added a button click sound
-    pygame.init()
-    pygame.mixer.music.load("ButtonSoundEffect.mp3")
-    pygame.mixer.music.play()
+    # pygame.init()
+    # pygame.mixer.music.load("ButtonSoundEffect.mp3")
+    # pygame.mixer.music.play()
 
     window.destroy()
     subprocess.call(['python', 'page2_tk.py'])  # Opening the requested page
