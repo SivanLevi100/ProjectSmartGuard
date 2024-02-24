@@ -67,7 +67,7 @@ image_title = canvas.create_image(220.0,110.0,image=image_image_1)
 
 image_image_2 = PhotoImage(
     file=relative_to_assets1("image_2.png"))
-image_view_icon = canvas.create_image(115.0,277.0,image=image_image_2)
+image_view_icon = canvas.create_image(120.0,420,image=image_image_2)
 
 #messagebox - Loading the classification model
 def show_message():
@@ -95,7 +95,7 @@ button_Class = Button(
     relief="flat"
 )
 button_Class.place(
-    x=239.0,
+    x=150.0,
     y=302.0,
     width=146.0,
     height=40.0
@@ -124,15 +124,15 @@ button_Real_Time = Button(
     relief="flat"
 )
 button_Real_Time.place(
-    x=39.0,
-    y=302.0,
+    x=150.0,
+    y=400.0,
     width=146.0,
     height=40.0
 )
 
 image_image_3 = PhotoImage(
     file=relative_to_assets1("image_3.png"))
-image_search_icon = canvas.create_image(311.0,277.0, image= image_image_3)
+image_search_icon = canvas.create_image(115,320, image= image_image_3)
 
 
 window.resizable(False, False)

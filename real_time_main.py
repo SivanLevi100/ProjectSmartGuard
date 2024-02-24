@@ -41,9 +41,9 @@ def detect(model, frames):  # Classifies the frames by the model and return the 
     print('#################################')
     print(predicted_labels_probabilities)
     if predicted_labels_probabilities[0][0] > 0.5:
-        label = "Violence"
-    else:
         label = "Non Violence"
+    else:
+        label = "Violence"
 
     return label
 def on_close(event, x, y, flags, param):
@@ -53,7 +53,7 @@ def on_close(event, x, y, flags, param):
 def main(video):
     label = "Non Violence"  # Default label
 
-    cap = cv2.VideoCapture(video)  # לפתוח מצלמה-0 או לשים סרטונים
+    cap = cv2.VideoCapture(video)  # video==0
 
     cv2.namedWindow("image")
     cv2.setMouseCallback("image", on_close)
@@ -76,32 +76,28 @@ def main(video):
         if cv2.getWindowProperty("image", cv2.WND_PROP_VISIBLE) < 1:
             break
 
-        # for j in range(10):# השאלה אם לעשות את הלולאה עבור כל 10 פריימים שונים או לקחת פריים אחד ולהכניס אותו 10 פעמים לתוך רשימה
-        # ret == false - there is error
-        #for j in range(10):
         ret, frame = cap.read()
 
         if ret == True:
             frame_original = cv2.resize(frame, (500, 500))
             frame = cv2.resize(frame, (IMAGE_SIZE, IMAGE_SIZE))  # Adjusts the frame to the size the model knows
-            frame = frame / 255
+            frame = frame / 255 # normalizing
             for j in range(10):
                 frames_list.append(frame)
         else:
             break
 
         if len(frames_list) < 10:
-            # print("Final:"+ max(counterV,counterNV))
             break
+
         frames = np.array(frames_list).reshape(1, 10, IMAGE_SIZE, IMAGE_SIZE, 3)
-        # i = i + 1
+
         print('Took 10 Frames Successfully')
         resized_frames[0][:] = frames
         print(resized_frames.shape)
-        # לא ברור אם נצטרך להשתמש בזה כרגע זה עבד גם בלי זה..if i > warm_up_frames:
+
         print("Start detecting...")
-        # t1 = threading.Thread(target=detect, args=(model, resized_frames))  # Threads
-        # t1.start()
+
         label = detect(model, resized_frames)
         if label == "Violence":
             counterV = counterV + 1
@@ -109,9 +105,8 @@ def main(video):
             counterNV = counterNV + 1
         print("!!!!!!!!!!!!!!!!!!!")
         print(label)
-        # print(t1)
+
         frame_original = draw_class_on_image(label, frame_original)
-        # frame = draw_class_on_image(label, frame)
         cv2.imshow("image", frame_original)
 
         if cv2.waitKey(1) == ord('q'):
