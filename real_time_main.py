@@ -41,9 +41,9 @@ def detect(model, frames):  # Classifies the frames by the model and return the 
     print('#################################')
     print(predicted_labels_probabilities)
     if predicted_labels_probabilities[0][0] > 0.5:
-        label = "Non Violence"
-    else:
         label = "Violence"
+    else:
+        label = "Non Violence"
 
     return label
 def on_close(event, x, y, flags, param):
