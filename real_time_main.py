@@ -41,9 +41,9 @@ def detect(model, frames):  # Classifies the frames by the model and return the 
     print('#################################')
     print(predicted_labels_probabilities)
     if predicted_labels_probabilities[0][0] > 0.5:
-        label = "Violence"
-    else:
         label = "Non Violence"
+    else:
+        label = "Violence"
 
     return label
 def on_close(event, x, y, flags, param):
@@ -58,7 +58,7 @@ def main(video):
     cv2.namedWindow("image")
     cv2.setMouseCallback("image", on_close)
 
-    model = keras.models.load_model("Models/cnn_lstm_model_PRO.hdf5")  # load our model from Colab
+    model = keras.models.load_model("Models/cnn1_model_PRO.hdf5")  # load our model from Colab
     print(model.input_shape)  # The number of dimensions in the matrix (None, 10, 224, 224, 3)
 
     # i = 0
