@@ -1,4 +1,5 @@
 # Project_AI - SmartGuard
+Development in the Python language in the PyCharm and Google Colab environment
 
 The camera transmits to the application in real time different spaces.
 When the model in the application classifies any case as a violent case, a warning sound is activated and the label changes to the label of a violent case.
